@@ -2,7 +2,7 @@
 <modelVersion>4.0.0</modelVersion>
 <groupId>edu.kit.ipd</groupId>
 <artifactId>OntologyAccess</artifactId>
-<version>0.0.1-SNAPSHOT</version>
+<version>0.0.1</version>
 <name>OntologyAccess</name>
 
 <properties>
@@ -70,5 +70,13 @@
       </plugin>
     </plugins>
   </build>
+
+  <distributionManagement>
+   <repository>
+     <id>github OntologyAccess</id>
+     <name>GitHub Gram21 Apache Maven Packages</name>
+     <url>https://maven.pkg.github.com/Gram21/OntologyAccess</url>
+   </repository>
+</distributionManagement>
 
 </project>
