@@ -1,2 +1,2 @@
 # OntologyAccess
-Simple Wrapper to access ontologies with concenience methods
+Simple Wrapper to access ontologies with convenience methods
