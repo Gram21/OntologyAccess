@@ -22,9 +22,17 @@ jobs:
         path: ~/.m2
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
-    - name: Deploy with Maven
-      env:
-        GITHUB_USERNAME: Gram21
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run:
-        mvn -B deploy --settings settings.xml --file pom.xml
+    - name: Maven deploy
+      uses: qcastel/github-actions-maven-release@v1.0.3
+      with:
+        # Filter the branch to execute the release on
+        release-branch-name: "master"
+        # Enable gpg signing
+        #gpg-enabled: "true"
+        # The GPG key ID
+        #gpg-key-id: ${{ secrets.GITHUB_GPG_KEY_ID }}
+        # The GPG key
+        #gpg-key: ${{ secrets.GITHUB_GPG_KEY }}
+        git-release-bot-name: "release-bot"
+        git-release-bot-email: "release-bot@example.com"
+        access-token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
