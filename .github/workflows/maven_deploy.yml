@@ -24,7 +24,7 @@ jobs:
         restore-keys: ${{ runner.os }}-m2
     - name: Deploy with Maven
       env:
-        GITHUB_USERNAME: x-access-token
+        GITHUB_USERNAME: Gram21
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run:
         mvn -B deploy --settings settings.xml --file pom.xml
