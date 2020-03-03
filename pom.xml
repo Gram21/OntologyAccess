@@ -73,7 +73,7 @@
 
   <distributionManagement>
    <repository>
-     <id>github OntologyAccess</id>
+     <id>github</id>
      <name>GitHub Gram21 Apache Maven Packages</name>
      <url>https://maven.pkg.github.com/Gram21/OntologyAccess</url>
    </repository>

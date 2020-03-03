@@ -6,30 +6,20 @@ on:
       - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
 jobs:
-  build:
-
+  publish:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up JDK 11
-      uses: actions/setup-java@v1
-      with:
-        java-version: 11
-    - name: Cache Maven packages
-      uses: actions/cache@v1
-      with:
-        path: ~/.m2
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-        restore-keys: ${{ runner.os }}-m2
-    - name: Maven Deploy
-      uses: simontunnat/action-maven-deploy@v1
-      with:
-        # Username that should be used to connect to the repository
-        username: x-access-token
-        # Password that should be used to connect to the repository
-        password: ${{ secrets.GITHUB_ACCESS_TOKEN }}
-        # Repository that should be deployed to
-        repository: https://maven.pkg.github.com/Gram21/OntologyAccess
-        maven-args: -B
-        access-token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - name: Cache Maven packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+      - name: Publish package
+        run: mvn -B deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
