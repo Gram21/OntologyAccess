@@ -22,17 +22,14 @@ jobs:
         path: ~/.m2
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
-    - name: Maven deploy
-      uses: qcastel/github-actions-maven-release@v1.0.3
+    - name: Maven Deploy
+      uses: simontunnat/action-maven-deploy@v1
       with:
-        # Filter the branch to execute the release on
-        release-branch-name: "master"
-        # Enable gpg signing
-        #gpg-enabled: "true"
-        # The GPG key ID
-        #gpg-key-id: ${{ secrets.GITHUB_GPG_KEY_ID }}
-        # The GPG key
-        #gpg-key: ${{ secrets.GITHUB_GPG_KEY }}
-        git-release-bot-name: "release-bot"
-        git-release-bot-email: "release-bot@example.com"
+        # Username that should be used to connect to the repository
+        username: x-access-token
+        # Password that should be used to connect to the repository
+        password: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+        # Repository that should be deployed to
+        repository: https://maven.pkg.github.com/Gram21/OntologyAccess
+        maven-args: -B
         access-token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
