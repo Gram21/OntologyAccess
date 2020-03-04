@@ -27,16 +27,15 @@ jobs:
       with:
         ref: gh-pages
     - run: rm -rf javadoc
-    - name: Download artifact
-      uses: actions/download-artifact@v1.0.0
-      with:
-        # Artifact name
-        name: javadoc
-        path: javadoc
+    # - name: Download artifact
+    #   uses: actions/download-artifact@v1.0.0
+    #   with:
+    #     # Artifact name
+    #     name: javadoc
+    #     path: javadoc
     - name: Git Commit and Push
       uses: github-actions-x/commit@v2.4
       with:
         push-branch: gh-pages
         # Github Token with commit access
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        files: javadoc/*
