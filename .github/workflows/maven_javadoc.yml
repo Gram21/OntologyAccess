@@ -26,16 +26,19 @@ jobs:
       uses: actions/upload-artifact@v1.0.0
       with:
         # Artifact name
-        name: javadoc.zip
+        name: javadoc
         # Directory containing files to upload
         path: target/site/
-    - run: git checkout origin/gh-pages
+    - name: Checkout
+      uses: actions/checkout@v2.0.0
+      with:
+        ref: gh-pages
     - name: Download artifact
       uses: actions/download-artifact@v1.0.0
       with:
         # Artifact name
-        name: javadoc.zip
-    - run: unzip -o javadoc.zip -d javadoc
+        name: javadoc
+    - run: unzip -o javadoc.zip && rm -rf javadoc && mv apidocs javadoc
     - name: Git Commit and Push
       uses: github-actions-x/commit@v2.4
       with:
