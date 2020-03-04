@@ -34,10 +34,10 @@ jobs:
         name: javadoc
         path: tmp
     - run: mv tmp/apidocs javadoc && rm -rf tmp
-    - run: git status
-    - name: Git Commit and Push
-      uses: github-actions-x/commit@v2.4
+    - name: Commit
+      uses: zwaldowski/git-commit-action@v1
+    - name: Push changes
+      uses: ad-m/github-push-action@master
       with:
-        push-branch: gh-pages
-        # Github Token with commit access
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+        branch: gh-pages
+        github_token: ${{ secrets.GITHUB_TOKEN }}
