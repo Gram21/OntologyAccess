@@ -48,6 +48,9 @@ import org.eclipse.collections.impl.set.mutable.UnifiedSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+* @author Jan Keim
+**/
 public class OntologyAccess {
     private static Logger logger = LoggerFactory.getLogger(OntologyAccess.class);
     private static OntModelSpec modelSpec = OntModelSpec.OWL_DL_MEM;
@@ -147,8 +150,8 @@ public class OntologyAccess {
     }
 
     /**
-     * Adds an individual to the ontology by adding it as individual of OWL:Thing.
-     * 
+     * Adds an individual to the ontology by adding it as individual of OWL:Thing
+     *
      * @param shortUri
      *            ShortUri of the Individual
      * @return the created Individual
@@ -233,7 +236,7 @@ public class OntologyAccess {
 
     /**
      * Adds a DatatypeProperty and sets the range. Range is xsd:string
-     * 
+     *
      * @param name
      *            Name of the property
      * @return the created DatatypeProperty
@@ -244,7 +247,7 @@ public class OntologyAccess {
 
     /**
      * Adds a DatatypeProperty with the given range as type.
-     * 
+     *
      * @param name
      *            Name of the property
      * @param domain
@@ -259,7 +262,7 @@ public class OntologyAccess {
 
     /**
      * Adds a DatatypeProperty with the given range as type.
-     * 
+     *
      * @param name
      *            Name of the property
      * @param domain
@@ -364,7 +367,7 @@ public class OntologyAccess {
 
     /**
      * Adds a restriction that all values have to come from a specific class
-     * 
+     *
      * @param uri
      *            Uri of the restriction, or null if anonymous
      * @param property
@@ -379,7 +382,7 @@ public class OntologyAccess {
 
     /**
      * Adds a restriction that all values have to come from a specific class
-     * 
+     *
      * @param property
      *            Property that should be restricted
      * @param cls
@@ -405,7 +408,7 @@ public class OntologyAccess {
 
     /**
      * Adds a statement provided with a triple (subject, predicate, object)
-     * 
+     *
      * @param subject
      *            the subject
      * @param property
@@ -450,7 +453,7 @@ public class OntologyAccess {
 
     /**
      * Adds an {@link ObjectProperty} to an individual.
-     * 
+     *
      * @param subject
      *            Subject of the property
      * @param property
@@ -465,7 +468,7 @@ public class OntologyAccess {
     /**
      * Checks whether there is an existing ObjectProperty that fulfils the given parameters. A parameter that is
      * <code>null</code> matches everything.
-     * 
+     *
      * @param subjectName
      *            name of Subject (or null)
      * @param propertyName
@@ -490,7 +493,7 @@ public class OntologyAccess {
     /**
      * Checks whether there is an existing ObjectProperty that fulfils the given parameters. A parameter that is
      * <code>null</code> matches everything.
-     * 
+     *
      * @param subject
      *            Subject (or null)
      * @param property
@@ -510,7 +513,7 @@ public class OntologyAccess {
 
     /**
      * Returns a list of {@link ObjectProperty} for the individual that is provided with its name
-     * 
+     *
      * @param individualName
      *            name of an individual
      * @return List of object properties of the individual. If the individual cannot be found, returns an empty list
@@ -527,7 +530,7 @@ public class OntologyAccess {
 
     /**
      * Returns a list of {@link ObjectProperty} for individual given by the URI
-     * 
+     *
      * @param individualUri
      *            URI of an individual
      * @return List of object properties of the individual. If the individual cannot be found, returns an empty list
@@ -538,7 +541,7 @@ public class OntologyAccess {
 
     /**
      * Returns a list of {@link ObjectProperty} for the given individual
-     * 
+     *
      * @param individual
      *            individual
      * @return List of object properties of the individual
@@ -550,7 +553,7 @@ public class OntologyAccess {
 
     /**
      * Returns the Properties of an individual
-     * 
+     *
      * @param individual
      *            Individual
      * @return List of properties of the individual
@@ -587,7 +590,7 @@ public class OntologyAccess {
     /**
      * Returns an Optional holding the class that corresponds to the given name. If no such class exists, returns an
      * empty optional.
-     * 
+     *
      * @param className
      *            Name of the class that should be returned
      * @return Optional holding the class that corresponds to the given name, or an empty optional if no such exists
@@ -598,7 +601,7 @@ public class OntologyAccess {
 
     /**
      * Adds a class with the given name to the ontology. If the class exists already, returns the existing class.
-     * 
+     *
      * @param className
      *            Name of the class that should be created
      * @return created class
@@ -650,7 +653,7 @@ public class OntologyAccess {
 
     /**
      * Returns the Individuals that have a class that corresponds to the given class name
-     * 
+     *
      * @param className
      *            Name of the class
      * @return List of Individuals for the given class (name)
@@ -682,7 +685,7 @@ public class OntologyAccess {
 
     /**
      * Adds an Individual to the given class
-     * 
+     *
      * @param name
      *            name of the individual that should be added
      * @param clazz
@@ -695,7 +698,7 @@ public class OntologyAccess {
 
     /**
      * Returns the values of the given {@link ObjectProperty} for the provided {@link Individual}
-     * 
+     *
      * @param individual
      *            Individual that should be checked
      * @param property
@@ -710,7 +713,7 @@ public class OntologyAccess {
 
     /**
      * Adds a comment to a resource with the provided language set
-     * 
+     *
      * @param resource
      *            Resource that should be annotated with the comment
      * @param comment
@@ -733,7 +736,7 @@ public class OntologyAccess {
     /**
      * Find all the statements matching a pattern. Lists all statements within the ontology with the given pattern of
      * subject-predicate-object
-     * 
+     *
      * @param subject
      *            Subject
      * @param predicate
@@ -748,7 +751,7 @@ public class OntologyAccess {
 
     /**
      * Returns whether a node is an instance of the given class
-     * 
+     *
      * @param node
      *            Node that should be checked
      * @param clazz
@@ -775,7 +778,7 @@ public class OntologyAccess {
     /**
      * Returns the shortest path between two individuals while treating every edge as undirected. The path can only
      * travel to directions the provided filter allows.
-     * 
+     *
      * @param start
      *            Starting individual
      * @param target
