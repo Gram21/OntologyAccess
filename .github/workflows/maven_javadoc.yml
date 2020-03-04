@@ -27,14 +27,13 @@ jobs:
       with:
         ref: gh-pages
     - run: rm -rf javadoc
-    - run: git status
     - name: Download artifact
       uses: actions/download-artifact@v1.0.0
       with:
         # Artifact name
         name: javadoc
         path: javadoc
-    - run: git status
+    - run: ls javadoc
     - name: Git Commit and Push
       uses: github-actions-x/commit@v2.4
       with:
