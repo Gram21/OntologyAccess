@@ -32,8 +32,8 @@ jobs:
       with:
         # Artifact name
         name: javadoc
-        path: javadoc
-    - run: ls javadoc
+    - run: mv apidocs javadoc
+    - run: git status
     - name: Git Commit and Push
       uses: github-actions-x/commit@v2.4
       with:
