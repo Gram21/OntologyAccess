@@ -1,6 +1,12 @@
 name: Create and deploy javadoc
 
-on: [push]
+# TODO: create folders for each version and deploy the files to the corresponding version folder
+# You can prbly use the variable $GITHUB_REF
+
+on:
+  push:
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
 jobs:
   build:
@@ -18,9 +24,7 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
       with:
-        # Artifact name
         name: javadoc
-        # Directory containing files to upload
         path: target/site/
     - name: Checkout
       uses: actions/checkout@v2.0.0
@@ -30,7 +34,6 @@ jobs:
     - name: Download artifact
       uses: actions/download-artifact@v1.0.0
       with:
-        # Artifact name
         name: javadoc
         path: tmp
     - run: mv tmp/apidocs javadoc && rm -rf tmp
