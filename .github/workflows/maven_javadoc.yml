@@ -43,5 +43,6 @@ jobs:
     - name: Git Commit and Push
       uses: github-actions-x/commit@v2.4
       with:
+        push-branch: gh-pages
         # Github Token with commit access
         github-token: ${{ secrets.GITHUB_TOKEN }}
