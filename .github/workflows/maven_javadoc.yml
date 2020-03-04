@@ -1,4 +1,4 @@
-name: Java CI
+name: Create and deploy javadoc
 
 on: [push]
 
@@ -21,21 +21,21 @@ jobs:
         restore-keys: ${{ runner.os }}-m2
     - name: Build with Maven
       run: mvn -B javadoc:javadoc --file pom.xml
-    - run:  cd target/site/apidocs && zip -r ../../../javadoc.zip * && cd - # TODO: improve
+    # - run:  cd target/site/apidocs && zip -r ../../../javadoc.zip * && cd - # TODO: improve
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
       with:
         # Artifact name
         name: javadoc.zip
         # Directory containing files to upload
-        path: javadoc.zip
-    - run: git checkout gh-pages
+        path: target/site/
+    - run: git checkout origin/gh-pages
     - name: Download artifact
       uses: actions/download-artifact@v1.0.0
       with:
         # Artifact name
         name: javadoc.zip
-    - run: unzip -o javadoc.zip -d test
+    - run: unzip -o javadoc.zip -d javadoc
     - name: Git Commit and Push
       uses: github-actions-x/commit@v2.4
       with:
