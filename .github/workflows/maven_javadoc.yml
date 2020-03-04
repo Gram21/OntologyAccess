@@ -39,3 +39,4 @@ jobs:
         push-branch: gh-pages
         # Github Token with commit access
         github-token: ${{ secrets.GITHUB_TOKEN }}
+        files: javadoc/*
