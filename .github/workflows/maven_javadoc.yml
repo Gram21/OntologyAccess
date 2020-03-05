@@ -37,6 +37,7 @@ jobs:
         name: javadoc
         path: tmp
     - run: mv tmp/apidocs javadoc && rm -rf tmp
+    - run: wget -O README.md https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/master/README.md
     - name: Commit
       uses: zwaldowski/git-commit-action@v1
     - name: Push changes
