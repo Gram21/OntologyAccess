@@ -5,6 +5,8 @@ name: Create and deploy javadoc
 
 on:
   push:
+    branches:
+      - master
     tags:
       - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
@@ -45,4 +47,5 @@ jobs:
       with:
         branch: gh-pages
         tags: false
+        force: true
         github_token: ${{ secrets.GITHUB_TOKEN }}
