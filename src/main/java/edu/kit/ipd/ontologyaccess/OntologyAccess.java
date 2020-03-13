@@ -1,4 +1,4 @@
-package edu.kit.ipd.are.ontologyaccess;
+package edu.kit.ipd.ontologyaccess;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -49,8 +49,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
-* @author Jan Keim
-**/
+ * @author Jan Keim
+ **/
 public class OntologyAccess {
     private static Logger logger = LoggerFactory.getLogger(OntologyAccess.class);
     private static OntModelSpec modelSpec = OntModelSpec.OWL_DL_MEM;
@@ -65,6 +65,13 @@ public class OntologyAccess {
         super();
     }
 
+    /**
+     * Create an OntologyAccess based on a file (that is an ontology and) that will be loaded.
+     *
+     * @param ontoFile
+     *            The file of an ontology
+     * @return An OntologyAccess object that uses the given file as underlying ontology
+     */
     public static OntologyAccess ofFile(String ontoFile) {
         OntologyAccess ontAcc = new OntologyAccess();
         ontAcc.ontModel = ModelFactory.createOntologyModel(modelSpec);
@@ -72,12 +79,26 @@ public class OntologyAccess {
         return ontAcc;
     }
 
+    /**
+     * Creates an OntologyAccess based on a given {@link OntModel}.
+     *
+     * @param ontModel
+     *            The OntModel the access should be based on
+     * @return An OntologyAccess object that uses the given OntModel as underlying ontology
+     */
     public static OntologyAccess ofOntModel(OntModel ontModel) {
         OntologyAccess ontAcc = new OntologyAccess();
         ontAcc.ontModel = ontModel;
         return ontAcc;
     }
 
+    /**
+     * Creates an empty OntologyAccess based on neither an existing file nor {@link OntModel}.
+     *
+     * @param defaultNameSpaceUri
+     *            The defaul namespace URI
+     * @return An OntologyAccess object based on neither an existing file nor {@link OntModel}
+     */
     public static OntologyAccess empty(String defaultNameSpaceUri) {
         OntologyAccess ontAcc = new OntologyAccess();
         ontAcc.ontModel = ModelFactory.createOntologyModel(modelSpec);
@@ -87,6 +108,11 @@ public class OntologyAccess {
         return ontAcc;
     }
 
+    /**
+     * Returns the {@link InfModel} for inference reasons.
+     *
+     * @return The InfModel for the ontology
+     */
     private synchronized InfModel getInfModel() {
         if (infModel == null) {
             Reasoner reasoner = ReasonerRegistry.getOWLReasoner();
@@ -95,10 +121,21 @@ public class OntologyAccess {
         return infModel;
     }
 
+    /**
+     * Returns the {@link OntModel} of the ontology
+     *
+     * @return the {@link OntModel} of the ontology
+     */
     public OntModel getOntology() {
-        return this.ontModel;
+        return ontModel;
     }
 
+    /**
+     * Validates the ontology. A logger will put out warnings iff there are conflicts.
+     *
+     * @return <code>true</code> if the ontology is valid and has no conflicts, <code>false</code> if there are
+     *         conflicts
+     */
     public boolean validateOntology() {
         InfModel infModel = ModelFactory.createRDFSModel(ontModel);
         ValidityReport validity = infModel.validate();
@@ -112,6 +149,13 @@ public class OntologyAccess {
         return false;
     }
 
+    /**
+     * Save the ontology to a given file (path).
+     *
+     * @param file
+     *            String containing the path of the file the ontology should be saved to
+     * @return
+     */
     public boolean save(String file) {
         if (file == null || file.isEmpty()) {
             return false;
@@ -128,10 +172,24 @@ public class OntologyAccess {
         return false;
     }
 
+    /**
+     * Set the default Prefix
+     *
+     * @param prefix
+     *            the new default prefix
+     */
     public void setDefaultPrefix(String prefix) {
-        this.defaultPrefix = prefix;
+        defaultPrefix = prefix;
     }
 
+    /**
+     * Add a namespace prefix
+     *
+     * @param prefix
+     *            the new prefix that should be able to use
+     * @param uri
+     *            the URI that the prefix should be resolved to
+     */
     public void addNsPrefix(String prefix, String uri) {
         ontModel.setNsPrefix(prefix, uri);
     }
@@ -144,6 +202,14 @@ public class OntologyAccess {
         return ontModel.expandPrefix(prefix + ":" + suffix);
     }
 
+    /**
+     * Search for individuals based on the given {@link Predicate}.
+     *
+     * @param searchPredicate
+     *            The predicate that should be used to look for individuals
+     * @return A list of individuals that correspond to the given predicate
+     */
+    // TODO: can we make MutableList to List? Does this break something?
     public MutableList<Individual> searchIndividual(Predicate<Individual> searchPredicate) {
         return createMutableListFromIterator(ontModel.listIndividuals()
                                                      .filterKeep(searchPredicate));
@@ -162,6 +228,16 @@ public class OntologyAccess {
         return ontModel.createIndividual(uri, clazz);
     }
 
+    /**
+     * Adds an individual and sets its class to the given {@link OntClass} and the short URI (without prefix). See also
+     * {@link #addNamedIndividual(String)}.
+     *
+     * @param cls
+     *            Class the individual should belong to
+     * @param shortUri
+     *            Short URI (without prefix)
+     * @return the created individual
+     */
     public Individual addNamedIndividual(OntClass cls, String shortUri) {
         String uri = createUri(shortUri);
         Individual individual = ontModel.getIndividual(uri);
@@ -173,6 +249,16 @@ public class OntologyAccess {
         return cls.createIndividual(uri);
     }
 
+    /**
+     * Adds an individual and sets its class to the given class name (as String) and the short URI (without prefix). See
+     * also {@link #addNamedIndividual(OntClass, String)}.
+     *
+     * @param className
+     *            Class the individual should belong to
+     * @param shortUri
+     *            Short URI (without prefix)
+     * @return the created individual
+     */
     public Individual addNamedIndividual(String className, String shortUri) {
         OntClass clazz = addClass(className);
         return addNamedIndividual(clazz, shortUri);
@@ -851,7 +937,7 @@ public class OntologyAccess {
         }
         Resource subj = stmt.getSubject();
         if (subj != null && subj.isResource()) {
-            resources.add((Resource) subj);
+            resources.add(subj);
         }
         return resources;
     }

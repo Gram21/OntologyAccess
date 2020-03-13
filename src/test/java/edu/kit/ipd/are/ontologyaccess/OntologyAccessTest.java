@@ -16,6 +16,8 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import edu.kit.ipd.ontologyaccess.OntologyAccess;
+
 /**
  * @author Jan Keim
  *
@@ -43,7 +45,7 @@ public class OntologyAccessTest {
 
     /**
      * Test method for
-     * {@link edu.kit.ipd.are.ontologyaccess.OntologyAccess#searchIndividual(java.util.function.Predicate)}.
+     * {@link edu.kit.ipd.ontologyaccess.OntologyAccess#searchIndividual(java.util.function.Predicate)}.
      */
     @Test
     public void testSearchIndividual() {
@@ -69,7 +71,7 @@ public class OntologyAccessTest {
 
     /**
      * Test method for
-     * {@link edu.kit.ipd.are.ontologyaccess.OntologyAccess#searchIndividual(java.util.function.Predicate)}.
+     * {@link edu.kit.ipd.ontologyaccess.OntologyAccess#searchIndividual(java.util.function.Predicate)}.
      */
     @Test
     public void testSearchIndividualNonExistent() {
