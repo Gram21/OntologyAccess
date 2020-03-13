@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"edu.kit.ipd.are.ontologyaccess","l":"OntologyAccess"}]
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"edu.kit.ipd.ontologyaccess","l":"OntologyAccess"}]
