@@ -150,26 +150,40 @@ public class OntologyAccess {
     }
 
     /**
-     * Save the ontology to a given file (path).
+     * Save the ontology to a given file (path). This method uses the N3 language to save.
      *
      * @param file
      *            String containing the path of the file the ontology should be saved to
-     * @return
+     * @return true if saving was successful, otherwise false is returned
      */
     public boolean save(String file) {
+        return save(file, Lang.N3);
+    }
+
+    /**
+     * Save the ontology to a given file (path). This method uses the N3 language to save.
+     *
+     * @param file
+     *            String containing the path of the file the ontology should be saved to
+     * @param language
+     *            The language the file should be written in
+     * @return true if saving was successful, otherwise false is returned
+     */
+    public boolean save(String file, Lang language) {
         if (file == null || file.isEmpty()) {
             return false;
         }
 
+        OutputStream out = null;
         try {
-            OutputStream out = new FileOutputStream(file);
-            ontModel.write(out, "RDF/XML");
-            return true;
+            out = new FileOutputStream(file);
         } catch (FileNotFoundException e) {
             logger.error(e.getMessage(), e);
+            return false;
         }
 
-        return false;
+        RDFDataMgr.write(out, ontModel, language);
+        return true;
     }
 
     /**
@@ -199,7 +213,13 @@ public class OntologyAccess {
     }
 
     private String createUri(String prefix, String suffix) {
-        return ontModel.expandPrefix(prefix + ":" + suffix);
+        String encodedSuffix = suffix;
+        try {
+            encodedSuffix = URLEncoder.encode(suffix, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            logger.error(e.getMessage(), e);
+        }
+        return ontModel.expandPrefix(prefix + ":" + encodedSuffix);
     }
 
     /**
